@@ -71,3 +71,10 @@ scripts/bench-*
 
 # tmp
 tmp/
+render-deploy.yaml
+
+# AirDev cert files
+cert-private.key
+cert-certificate.crt
+certificate.p12
+certificate.p12.b64

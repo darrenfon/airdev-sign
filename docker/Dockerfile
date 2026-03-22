@@ -132,4 +132,9 @@ COPY --chown=nodejs:nodejs ./docker/start.sh /app/apps/remix/start.sh
 
 WORKDIR /app/apps/remix
 
+# Symlink prisma schema/migrations so they're resolvable from the runtime WORKDIR
+RUN mkdir -p packages/prisma && \
+    ln -s /app/packages/prisma/schema.prisma packages/prisma/schema.prisma && \
+    ln -s /app/packages/prisma/migrations packages/prisma/migrations
+
 CMD ["sh", "start.sh"]
