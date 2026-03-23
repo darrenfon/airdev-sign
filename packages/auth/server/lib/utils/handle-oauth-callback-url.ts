@@ -227,7 +227,7 @@ export const validateOauth = async (options: HandleOAuthCallbackUrlOptions) => {
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   const claims = decodeIdToken(tokens.idToken()) as Record<string, unknown>;
 
-  const email = claims.email;
+  const email = typeof claims.email === 'string' ? claims.email.toLowerCase() : claims.email;
   const name = claims.name;
   const sub = claims.sub;
 

@@ -66,7 +66,7 @@ export const findInbox = async ({
     status === 'ACTION_REQUIRED'
       ? {
           some: {
-            email: user.email,
+            email: { equals: user.email, mode: 'insensitive' },
             signingStatus: SigningStatus.NOT_SIGNED,
             role: {
               not: RecipientRole.CC,
@@ -75,7 +75,7 @@ export const findInbox = async ({
         }
       : {
           some: {
-            email: user.email,
+            email: { equals: user.email, mode: 'insensitive' },
             role: {
               not: RecipientRole.CC,
             },
