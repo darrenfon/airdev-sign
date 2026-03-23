@@ -14,7 +14,10 @@ import { useUpdateSearchParams } from '@documenso/lib/client-only/hooks/use-upda
 import { useSession } from '@documenso/lib/client-only/providers/session';
 import { isDocumentCompleted } from '@documenso/lib/utils/document';
 import { trpc } from '@documenso/trpc/react';
-import type { TFindInboxResponse } from '@documenso/trpc/server/document-router/find-inbox.types';
+import type {
+  TFindInboxResponse,
+  TInboxFilterStatus,
+} from '@documenso/trpc/server/document-router/find-inbox.types';
 import { Button } from '@documenso/ui/primitives/button';
 import type { DataTableColumnDef } from '@documenso/ui/primitives/data-table';
 import { DataTable } from '@documenso/ui/primitives/data-table';
@@ -48,10 +51,12 @@ export const InboxTable = () => {
 
   const page = searchParams?.get?.('page') ? Number(searchParams.get('page')) : undefined;
   const perPage = searchParams?.get?.('perPage') ? Number(searchParams.get('perPage')) : undefined;
+  const status = (searchParams?.get?.('status') as TInboxFilterStatus) || undefined;
 
   const { data, isLoading, isLoadingError } = trpc.document.inbox.find.useQuery({
     page: page || 1,
     perPage: perPage || 10,
+    status,
   });
 
   const columns = useMemo(() => {
